@@ -56,13 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   ui.configure(config);
   const controls = ui.getControls();
 
-  // Optimized player configuration
-  player.configure({
-        drm: {
-      clearKeys: {
-        "keyId": "key"
-      }
-    },
+
        streaming: {
   bufferingGoal: 120,// Increased from 30s to 120s
   rebufferingGoal: 15,       // Increased from 5s to 15s
