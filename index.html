@@ -10,8 +10,8 @@
 <script>
 const queryParams = new URLSearchParams(window.location.search);
         const mpd = queryParams.get('mpd');
-        const keyId= queryParams.get('keyId');
- const key= queryParams.get('key');
+        const k= queryParams.get('keyId');
+ const ke= queryParams.get('key');
 
     
 
@@ -56,7 +56,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   ui.configure(config);
   const controls = ui.getControls();
 
-
+  // Optimized player configuration
+  player.configure({
+        drm: {
+      clearKeys: {
+        "ae26845bd33038a9c0774a0981007294": "63ac662dde310cfb4cc6f9b43b34196d"
+      }
+    },
        streaming: {
   bufferingGoal: 120,// Increased from 30s to 120s
   rebufferingGoal: 15,       // Increased from 5s to 15s
@@ -80,8 +86,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Load stream and setup autoplay
   try {
-    console.log('Loading stream:', "https://dtvxtream.com/sonyliv2/index.php?id=300267&file=master_1300.m3u8");
-    await player.load("https://dtvxtream.com/sonyliv2/index.php?id=300267&file=master_1300.m3u8");
+    console.log('Loading stream:', "https://ottb.live.cf.ww.aiv-cdn.net/lhr-nitro/live/clients/dash/enc/wf8usag51e/out/v1/bd3b0c314fff4bb1ab4693358f3cd2d3/cenc.mpd");
+    await player.load("https://ottb.live.cf.ww.aiv-cdn.net/lhr-nitro/live/clients/dash/enc/wf8usag51e/out/v1/bd3b0c314fff4bb1ab4693358f3cd2d3/cenc.mpd");
     
     // Immediate autoplay attempt
     setTimeout(async () => {
@@ -114,9 +120,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   }
 });
-
-
- 
 </script>
 
 
