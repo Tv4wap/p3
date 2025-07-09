@@ -23,27 +23,26 @@ document.addEventListener('DOMContentLoaded', async () => {
   
 
   const video = document.querySelector('video');
-  const player = new shaka.Player();
+  
+  const manualPlayButton = document.getElementById('manualPlayButton');
   
 
   await player.attach(video);
 
   
-            const container = document.querySelector('.shaka-video-container');
+            
             const ui = new shaka.ui.Overlay(player, container, video);
-
+const player = new shaka.Player();
             const config = {
                 controlPanelElements: [
                     'play_pause',
                     'time_and_duration',
-                    'mute',
-                    'volume',
-                    'spacer',
-                    'captions',
-                    'quality',
-                    'language',
-                    'picture_in_picture',
-                    'fullscreen',
+                  'mute',
+                  'spacer',
+                  'captions',
+                  'quality',
+          'picture_in_picture',
+                  'fullscreen',
                     'overflow_menu'
                 ]
             };
