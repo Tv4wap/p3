@@ -24,15 +24,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const video = document.querySelector('video');
   
-  const container = document.querySelector('.shaka-video-container');
   
+  const player = new shaka.Player();
 
   await player.attach(video);
 
   
-            
+            const container = document.querySelector('.shaka-video-container');
             const ui = new shaka.ui.Overlay(player, container, video);
-const player = new shaka.Player();
+
             const config = {
                 controlPanelElements: [
                     'play_pause',
