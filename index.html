@@ -1,6 +1,8 @@
 <div class="shaka-video-container youtube-theme" data-shaka-player>
   <video autoplay muted playsinline preload="auto"></video>
-  
+  <div class="manual-play-button" id="manualPlayButton">
+    ▶ Click
+  </div>
 </div>
 
 
@@ -25,7 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const video = document.querySelector('video');
   const player = new shaka.Player();
   const container = document.querySelector('.shaka-video-container');
-
+const manualPlayButton = document.getElementById('manualPlayButton');
   
   await player.attach(video);
 
