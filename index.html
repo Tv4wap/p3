@@ -1,6 +1,8 @@
-<div class="shaka-video-container youtube-theme" data-shaka-player>
+<div class="shaka-video-container youtube-theme" >
   <video autoplay muted playsinline preload="auto"></video>
-  
+  <div class="manual-play-button" id="manualPlayButton">
+    
+  </div>
 </div>
 
 
@@ -23,30 +25,37 @@ document.addEventListener('DOMContentLoaded', async () => {
   
 
   const video = document.querySelector('video');
-  
-  
   const player = new shaka.Player();
-
-  await player.attach(video);
-
   
-            const container = document.querySelector('.shaka-video-container');
-            const ui = new shaka.ui.Overlay(player, container, video);
-
-            const config = {
-                controlPanelElements: [
-                    'play_pause',
-                    'time_and_duration',
-                  'mute',
-                  'spacer',
-                  'captions',
-                  'quality',
-          'picture_in_picture',
-                  'fullscreen',
-                    'overflow_menu'
-                ]
-            };
-            ui.configure(config);
+const manualPlayButton = document.getElementById('manualPlayButton');
+  
+  await player.attach(video);
+const container = document.querySelector('.shaka-video-container');
+  const ui = new shaka.ui.Overlay(player, container, video);
+  
+  // Custom UI configuration with seek bar colors
+  const config = {
+    'seekBarColors': {
+      base: 'rgba(255,255,255,.2)',
+      buffered: 'rgba(255,255,255,.4)',
+      played: 'rgb(255,0,0)',
+    },
+    'controlPanelElements': [
+      'play_pause',
+      'time_and_duration',
+      'mute',
+      'volume',
+      'spacer',
+      'captions',
+      'quality',
+      'language',
+      'picture_in_picture',
+      'fullscreen',
+      'overflow_menu'
+    ]
+  };
+  
+  ui.configure(config);
   const controls = ui.getControls();
 
   // Optimized player configuration
@@ -581,4 +590,4 @@ document.addEventListener('DOMContentLoaded', async () => {
       background: rgba(255, 0, 0, 0.8);
       transform: translate(-50%, -50%) scale(1.05);
     }
-  </style>
+                       </style>
