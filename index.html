@@ -10,17 +10,25 @@
 
 
 <script>
-const queryParams = new URLSearchParams(window.location.search);
-        const mpd = queryParams.get('mpd');
-        const keyId= queryParams.get('keyId');
- const key= queryParams.get('key');
+function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); 
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null; 
+        }
 
-    
+        var mpd = getUrlParam('mpd');
+        var keyId = getUrlParam('keyId');
+        var key = getUrlParam('key');
+        
+        
+
 
 
 
 document.addEventListener('DOMContentLoaded', async () => {
   shaka.polyfill.installAll();
+
 
   
 
@@ -56,15 +64,21 @@ const container = document.querySelector('.shaka-video-container');
   };
   
   ui.configure(config);
+
+
+ player.configure({  
+                            drm: {  
+                                clearKeys: {  
+                                    [keyId]: key  
+                                }  
+                            }  
+                        });  
+    
   const controls = ui.getControls();
 
   // Optimized player configuration
   player.configure({
-        drm: {
-      clearKeys: {
-        '6d1708b185c6c4d7b37600520c7cc93c':'1aace05f58d8edef9697fd52cb09f441'
-      }
-    },
+        
        streaming: {
   bufferingGoal: 120,// Increased from 30s to 120s
   rebufferingGoal: 15,       // Increased from 5s to 15s
@@ -84,6 +98,8 @@ const container = document.querySelector('.shaka-video-container');
         maxAttempts: 2
       }
     }
+
+
   });
   // Enhanced autoplay function
   const attemptAutoplay = async () => {
@@ -174,10 +190,15 @@ const container = document.querySelector('.shaka-video-container');
       await attemptAutoplay();
     }
   });
+
+
+
   // Load stream and setup autoplay
   try {
-    console.log('Loading stream:', 'https://ottb.live.cf.ww.aiv-cdn.net/lhr-nitro/live/clients/dash/enc/f0qvkrra8j/out/v1/f8fa17f087564f51aa4d5c700be43ec4/cenc.mpd');
-    await player.load('https://ottb.live.cf.ww.aiv-cdn.net/lhr-nitro/live/clients/dash/enc/f0qvkrra8j/out/v1/f8fa17f087564f51aa4d5c700be43ec4/cenc.mpd');
+    console.log('Loading stream:', mpd);
+    await player.load(mpd);
+
+
     
     // Immediate autoplay attempt
     setTimeout(async () => {
@@ -590,4 +611,4 @@ const container = document.querySelector('.shaka-video-container');
       background: rgba(255, 0, 0, 0.8);
       transform: translate(-50%, -50%) scale(1.05);
     }
-                       </style>
+  </style>
